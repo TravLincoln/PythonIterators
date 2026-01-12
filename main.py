@@ -12,40 +12,50 @@ class Dice:
         self.rolls = rolls
         self.count = 0
 
-    # all __iter__() does is return itself
     def __iter__(self):
         return self
 
-    # __next__() in charge of returning next item in a sequence
-    # in this case, when we call __next__() we return a random number
-    def  __next__(self):
+    # in charge of returning the next item in a sequence
+    def __next__(self):
         if self.count < self.rolls:
             self.count += 1
-            return random.randint(1, 6)
+
+            # when the method is called,
+            # return a random number between 1 - 6
+            return random.randint(1,6)
         else:
             raise StopIteration
+
+# Higher level operations are being translated in the python interpreter
+# into lower level operations
 
 # FOR LOOP METHOD:
 '''
 dice = Dice(3)
+
 for die in dice:
     print(die)
 '''
 
 # LIST COMPREHENSION METHOD:
+'''
+# return each die for every die in Dice
 dice = [die for die in Dice(4)]
 print(dice)
-
-
 '''
-# When running the program this is happening behind the scenes:
-dice  = Dice(3)
-# iter(dice) same as dice.__iter__()
+
+
+
+
+# When running the program this is happening behind the scenes,
+# DOES NOT NEED TO BE WRITTEN THIS WAY:
+'''
+dice = Dice(3)
+
 iterator = iter(dice)
 
 while True:
     try:
-        # next(iterator) same as iterator.__next__()
         roll = next(iterator)
         print(roll)
     except StopIteration:
